@@ -5,6 +5,7 @@
 
 0. Node
     1. Express
+    2. Nodemon
 
 1. Gestionar usuarios en el servidor
     1. Rutas para control de usuarios.
@@ -35,10 +36,10 @@
     5. Gestíon de seguidores
     6. Timeline
 
-# 0 Node
+# 0. Node
 Node.js es el software elegido para desarrollar la parte servidor. Los módulos disponibles desde [NPM](https://www.npmjs.com/) permiten añadir funcionalidad sobre la base de Node, conviertiéndolo en una herramienta perfecta para desarrollos seguros y rápidos.
 
-# 0.1 Express
+## 0.1. Express
 Para instalar Express:
 ```npm i express```
 
@@ -49,7 +50,7 @@ Express nos permite:
 
 El servidor escucha por defecto en el puerto 3000.
 
-# 0.2 Nodemon
+# 0.2. Nodemon
 [Nodemon](https://www.npmjs.com/package/nodemon) es una herramienta que permite reiniciar una aplicación de node cada vez que se detecta un cambio en cualquier fichero del directorio donde se ejecuta.
 
 Para ejecutar el servidor se ha creado el script **start** en **package.json** para lanzar el index.js cada vez que haya cambios:
@@ -61,7 +62,7 @@ Para ejecutar el servidor se ha creado el script **start** en **package.json** p
 
 # 1. Gestionar usuarios en el servidor
 
-# 1.1 Rutas para el control de usuarios.
+## 1.1 Rutas para el control de usuarios.
 
 Se diferencian dos servicios principales. La API para gestionar el login y la API para gestionar las peticiones de los usuarios en la ejecución de la web.
 
@@ -118,3 +119,33 @@ De esta manera el usuario termina el proceso de autenticación, obteniendo el To
      Authorization: Bearer mF_9.B5f-4.1JqM
 ```
 Este modelo de autorización permite que cliente y servidor no tengan que guardar estado sobre la sesión. Perfecto para emplear en conjunción con las API REST.
+
+
+# 3 API REST
+La comunicación entre el servidor y el cliente se realiza a través de una API REST. De este modo nos aseguramos desacoplar totalmente las dos partes que conforman la aplicación, permitiendo:
+* Cambiar o substituir el servidor sin tener que modificar el cliente y viceversa.
+* Asegurarnos de que todas las peticiones no necesitan guardar sesión o estado, lo que hace mucho más simple la comunicación.
+* Utilizar estándars web de comunicación. Empleo de HTTP + JSON + peticiones asíncronas por los clientes.
+
+
+## 3.1. Especificacin de la API
+Toda la gestión de la api colgará de la ruta ```/api```
+
+Dependiendo de la tarea en concreto, se gestionará en un [Router](https://expressjs.com/en/guide/routing.html) diferente. 
+
+Veremos esas subrutas en cada uno de los siguientes puntos.
+
+## 3.2. Subir rutas
+Las rutas para subir datos parten de ```/api/upload/```, son las siguientes:
+
+* Subida de fotos para el usuario:
+
+* Subida de ficheros de rutas:
+
+## 3.2.1. Subir ficheros
+## 3. Editar rutas
+    4. Descargar actividades
+        1. Paginación de la descarga
+    5. Eliminar rutas.
+    6. Listar usuarios
+        6.1 Hacer/Eliminar seguidores
