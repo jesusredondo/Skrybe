@@ -6,6 +6,7 @@
 0. Node
     1. Express
     2. Nodemon
+    3. Cors
 
 1. Gestionar usuarios en el servidor
     1. Rutas para control de usuarios.
@@ -59,6 +60,8 @@ Para ejecutar el servidor se ha creado el script **start** en **package.json** p
     nodemon index.js
 ```
 
+# 0.3 Cors
+[El paquete cors de NPM](https://www.npmjs.com/package/cors) permite gestionar el cors de manera casi transparente como un middleware de Express.
 
 # 1. Gestionar usuarios en el servidor
 
@@ -72,8 +75,8 @@ Para las rutas de gestión de usuarios se empleará el siguiente prefijo: **/api
 ```javascript
     let usuario = { 
         _id: 1, //Auto generado - Obligatorio - Automático
-        nombre: "Jesús", //Mínimo 3 letras, sin números. - Obligatorio
-        apellidos: "Redondo García", //Mínimo 3 letras, sin números - Obligatorio
+        nombre: "Jesús", //Mínimo 3 caracteres. - Obligatorio
+        apellidos: "Redondo García", //Mínimo 3 caracteres - Obligatorio
         email: "redondogarciajesus@gmail.com", //Bien formado - Obligatorio
         password: "2134skjd2345kbsdf", //Encriptada - Obligatorio
         imagen: "https://....", //Url de la imagen

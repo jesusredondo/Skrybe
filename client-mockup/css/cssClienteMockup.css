@@ -1,0 +1,14 @@
+label{
+    display: inline-block;
+    min-width: 80px;
+}
+
+body{
+    background-color: antiquewhite;
+}
+
+.contenedor-central{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
