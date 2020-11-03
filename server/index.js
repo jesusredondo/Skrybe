@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const formidable = require('express-formidable');
 const cors = require('cors');
 
 //IMPORTAR VALORES DE ENV:
@@ -16,19 +17,32 @@ mongoose.connect(
 
 //IMPORTAR RUTAS:
 const authRoute = require('./routes/auth');
+const usuariosRoute = require('./routes/usuarios');
 
+
+//Páginas estáticas:
+app.use(express.static('../client-mockup'));
 
 
 //MIDDLEWARES:
-//Cors
+//Parsear el body como un objeto json:
+app.use(express.json());
+//Parsear los formularios con objeto json:
+app.use(formidable());
+//Activar el CORS:
 app.use(cors());
 
-//Para parsear el body de la petición como JSON:
-app.use(express.json());
-//Mis middlewares:
+
+
+
+
+
+//Mis rutas:
 //Para autorización:
 app.use('/api/auth', authRoute);
 
+//para consulta:
+app.use('/  api/usuarios', usuariosRoute);
 
 
 

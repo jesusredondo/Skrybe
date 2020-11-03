@@ -6,11 +6,11 @@ const Joi = require('@hapi/joi');
  */
 function validarUsuarioSignin(data){
     const schemaUsuarioSignin = Joi.object({
-        nombre: Joi.string().min(3).max(255).required(),
-        apellidos: Joi.string().min(3).max(255).required(),
-        email: Joi.string().min(6).max(255).required().email(),
-        password: Joi.string.min(6).max(1024).required(),
-        imagen: Joi.string.max(1024)
+        nombre: Joi.string().min(3).max(255),//.required(),
+        apellidos: Joi.string().min(3).max(255),//.required(),
+        email: Joi.string().min(6).max(255),//.required().email(),
+        password: Joi.string().min(6).max(1024),//.required(),
+        imagen: Joi.string().max(1024)
     })
     return schemaUsuarioSignin.validate(data);
 };
@@ -23,7 +23,7 @@ function validarUsuarioSignin(data){
 function validarUsuarioLogin(data){
     const schemaUsuarioLogin = Joi.object({
         email: Joi.string().min(6).max(255).required().email(),
-        password: Joi.string.min(6).max(1024).required(),
+        password: Joi.string().min(6).max(1024).required(),
     })
     return schemaUsuarioLogin.validate(data);
 };

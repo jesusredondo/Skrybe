@@ -7,6 +7,10 @@
     1. Express
     2. Nodemon
     3. Cors
+    4. Formidable
+    5. Dotenv
+    6. Bcryptjs
+    7. JSON Web Token
 
 1. Gestionar usuarios en el servidor
     1. Rutas para control de usuarios.
@@ -62,6 +66,18 @@ Para ejecutar el servidor se ha creado el script **start** en **package.json** p
 
 # 0.3 Cors
 [El paquete cors de NPM](https://www.npmjs.com/package/cors) permite gestionar el cors de manera casi transparente como un middleware de Express.
+
+# 0.4 Formidable
+[Formidable NPM](https://www.npmjs.com/package/formidable) es un middleware de Node que convierte las peticiones de un formulario que se forma con un [Formdata](https://developer.mozilla.org/en-US/docs/Web/API/FormData) para que se encuentren disponibles en la petición dentro de: ```req.fields``` y ```req.files```. Es fundamental para manejar muchas de las peticiones que vienen desde el cliente mediante un formulario.
+
+# 0.5 Dotenv
+[Dotenv](https://www.npmjs.com/package/dotenv) permine incluir variables de estado para guardar información de manera segura sin que se encuentre en el código JS.
+
+# 0.6 Bryptjs
+[Bcryptjs](https://www.npmjs.com/package/bcryptjs) es un paquete de NPM que se emplea para encriptar las contraseñas en las bases de datos.
+
+# 0.7 JSON Web Token
+[JSON Web Token](https://www.npmjs.com/package/jsonwebtoken) es una implementación de la tecnología de Web Tokens. Permite generar tokens a partir de un secreto que guarda el servidor. Sólo el servidor puede generar los tokens.
 
 # 1. Gestionar usuarios en el servidor
 
@@ -119,7 +135,7 @@ De esta manera el usuario termina el proceso de autenticación, obteniendo el To
 ```http
     GET /resource HTTP/1.1
     Host: server.example.com
-     Authorization: Bearer mF_9.B5f-4.1JqM
+    Authorization: Bearer mF_9.B5f-4.1JqM
 ```
 Este modelo de autorización permite que cliente y servidor no tengan que guardar estado sobre la sesión. Perfecto para emplear en conjunción con las API REST.
 

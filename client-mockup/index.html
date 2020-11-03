@@ -8,8 +8,8 @@
     <body>
         <div class="contenedor-central">
             
-            <h1>Comprobando el Signin</h1>
-            <div>
+            <div id="contenedor-izq">
+                <h1>Comprobando el Signin</h1>
                 <form id="formularioSignin">
                     <label for=nombre"">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" value="jesus"/><br>
@@ -26,8 +26,38 @@
         
                     <input type="submit" value="Enviar">
                 </form>
+                
+
+                <h1>Comprobando el Login</h1>
+                <form id="formularioLogin">
+                    <label for=email"">Email:</label>
+                    <input type="email" id="email" name="email" value="redondogarciajesus@gmail.com"/><br>
+        
+                    <label for=password"">Password:</label>
+                    <input type="text" id="password" name="password" value="unpassword" /><br>
+                    <input type="submit" value="Enviar">
+                </form>
+            
+                <h1>Comprobando obtener mi propio user con protección:</h1>
+                <form id="formularioYo" noaction>
+                    <label for=tokenYo"">Token:</label>
+                    <input type="text" id="tokenYo" name="token" placeholder="Meter aquí el token"/><br>
+                    <input type="submit" value="Enviar">
+                </form>
+
+                <h1>Comprobando obtener users con protección:</h1>
+                <form id="formularioUsuarios" noaction>
+                    <label for=tokenUsuarios"">Token:</label>
+                    <input type="text" id="tokenUsuarios" name="token" placeholder="Meter aquí el token"/><br>
+                    <input type="submit" value="Enviar">
+                </form>
+
+
             </div>
-            <div id="contenedorRespuesta"></div>
+            <div id="contenedor-izq">
+                <div id="contenedorRespuesta"></div>
+            </div>
+            
 
         </div>
        

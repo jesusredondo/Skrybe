@@ -8,29 +8,92 @@ document.addEventListener('DOMContentLoaded',()=>{
         enviarSignin();
     });
 
+
+    document.querySelector('#formularioLogin').addEventListener('submit',(e)=>{
+        e.preventDefault();
+        enviarLogin();
+    });
+
+    document.querySelector('#formularioYo').addEventListener('submit', pedirYo);
+    document.querySelector('#formularioUsuarios').addEventListener('submit', pedirUsuarios);
 });
 
-
+/**
+ * Envía la petición para Sign-in de un nuevo usuario.
+ */
 function enviarSignin() {
-    const XHR = new XMLHttpRequest();
-    // Bind the FormData object and the form element
-    const FD = new FormData( document.querySelector('#formularioSignin') );
+    const peticionSignin = new XMLHttpRequest();
+    const FD = new FormData(document.querySelector('#formularioSignin'));
 
-    // Define what happens on successful data submission
-    XHR.addEventListener( "load", function(event) {
-      alert( event.target.responseText );
+    peticionSignin.addEventListener( "load", function(event) {
+        console.log( event.target.responseText );
     } );
 
-    // Define what happens in case of error
-    XHR.addEventListener( "error", function( event ) {
-      alert( 'Oops! Something went wrong.' );
+    peticionSignin.addEventListener( "error", function( event ) {
+        alert( 'Oops! Something went wrong.' );
     } );
 
-    // Set up our request
-    XHR.open( "POST", "http://localhost:3000/api/auth/signin" );
-    XHR.setRequestHeader('X-PINGOTHER', 'pingpong');
-    XHR.setRequestHeader('Content-Type', 'application/json');
+    // Abrir & mandar
+    peticionSignin.open( "POST", "http://localhost:3000/api/auth/signin" );
+    peticionSignin.send( FD );
+}
 
-    // The data sent is what the user provided in the form
-    XHR.send( FD );
+
+/**
+ * Envía la petición para Sign-in de un nuevo usuario.
+ */
+function enviarLogin() {
+    const peticionSignin = new XMLHttpRequest();
+    const FD = new FormData(document.querySelector('#formularioLogin'));
+
+    peticionSignin.addEventListener( "load", function(event) {
+        let objRespuesta = JSON.parse(event.target.responseText)
+        console.log( objRespuesta );
+        //Pillamos donde meter el token y lo metemos:
+        document.querySelectorAll('[id^=token]').forEach(x => x.value=objRespuesta.access_token);
+    } );
+
+    peticionSignin.addEventListener( "error", function( event ) {
+        alert( 'Oops! Something went wrong.' );
+    } );
+
+    // Abrir & mandar
+    peticionSignin.open( "POST", "http://localhost:3000/api/auth/login" );
+    peticionSignin.send( FD );
+}
+
+
+/**
+ * Envía la petición para Consultar mi perfil.
+ */
+function pedirYo(e) {
+    e.preventDefault();
+    console.log('Bearer '+ document.querySelector('#tokenUsuarios').value)
+
+    fetch("http://localhost:3000/api/usuarios/yo",
+        {
+            headers: {
+                'Authorization':'Bearer '+ document.querySelector('#tokenUsuarios').value
+            }
+        })
+    .then(resp => resp.json())
+    .then(obj=> console.log(obj));
+
+}
+
+/**
+ * Envía la petición para Consultar los usuarios del sistema.
+ */
+function pedirUsuarios(e) {
+    e.preventDefault();
+    
+    fetch("http://localhost:3000/api/usuarios",
+        {
+            headers: {
+                'Authorization':'Bearer '+ document.querySelector('#tokenUsuarios').value
+            }
+        })
+    .then(resp => resp.json())
+    .then(obj=> console.log(obj));
+
 }
