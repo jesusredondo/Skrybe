@@ -42,7 +42,7 @@ app.use(cors());
 app.use('/api/auth', authRoute);
 
 //para consulta:
-app.use('/  api/usuarios', usuariosRoute);
+app.use('/api/usuarios', usuariosRoute);
 
 
 

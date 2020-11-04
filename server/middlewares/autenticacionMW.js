@@ -11,7 +11,6 @@ module.exports = function (req,res,next){
     try{
         const usuarioVerificado = jwt.verify(token,process.env.TOKEN_SECRET);
         req.user = usuarioVerificado; //Lo añadimos a la petición para los siguientes manejadores
-        //console.log(usuarioVerificado);
         next();
     }catch(err){
         res.status(400).send({error:'Token inválido'});
