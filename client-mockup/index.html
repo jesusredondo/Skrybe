@@ -2,6 +2,20 @@
 <html>
     <head>
         <meta charset="UTF-8"></head>
+
+        <!-- Leaflet -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin=""/>
+
+        <!-- Make sure you put this AFTER Leaflet's CSS -->
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
+
+        <script src="./js/utilidades.js"></script>
+        <script src="./js/aHTML.js"></script>
         <script src="./js/clienteMockup.js"></script>
         <link rel="stylesheet" href="./css/cssClienteMockup.css">
     </head>
@@ -53,8 +67,40 @@
                 </form>
 
 
+
+                <h1>Subiendo un fichero GPX:</h1>
+                <form id="formularioSubirGPX" noaction>
+                    <label for=tokenGPX"">Token:</label>
+                    <input type="text" id="tokenGPX" name="token" placeholder="Meter aquí el token"/><br>
+                    <label for=ficheroSubirGPX"">Fichero:</label>
+                    <input type="file" id="ficheroSubirGPX" name="ficheroSubirGPX"><br>
+                    <input type="submit" value="Enviar">
+                </form>
+
+
+                <h1>Obtener todos las Features (TODO: adaptar a un usuario y cambiar a Actividad en lugar de Feature):</h1>
+                <form id="formularioTodasActividades" noaction>
+                    <label for="tokenTodasActividades">Token:</label>
+                    <input type="text" id="tokenTodasActividades" name="token" placeholder="Meter aquí el token"/><br>
+                    <input type="submit" value="Enviar">
+                </form>
+                <div id="contenedorTodasActividades"></div>
+
+
+                <h1>Obtener una Feature en concreto - MAPA (TODO: Cambiar a Actividad cuando BD cambie):</h1>
+                <form id="formularioUnaActividad" noaction>
+                    <label for="tokenUnaActividad">Token:</label>
+                    <input type="text" id="tokenUnaActividad" name="token" placeholder="Meter aquí el token"/><br>
+                    <label for="idUnaActividad">ID Actividad:</label>
+                    <input type="text" id="idUnaActividad" name="id" placeholder="Meter aquí la id de la actividad"/><br>
+                    <input type="submit" value="Enviar">
+                </form>
+                <div id="contenedorUnaActividad"></div>
+
+
+
             </div>
-            <div id="contenedor-izq">
+            <div id="contenedor-der">
                 <div id="contenedorRespuesta"></div>
             </div>
             

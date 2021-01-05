@@ -18,6 +18,8 @@ mongoose.connect(
 //IMPORTAR RUTAS:
 const authRoute = require('./routes/auth');
 const usuariosRoute = require('./routes/usuarios');
+const actividadesRoute = require('./routes/actividades');
+const uploadRoute = require('./routes/upload');
 
 
 //Páginas estáticas:
@@ -43,6 +45,10 @@ app.use('/api/auth', authRoute);
 
 //para consulta:
 app.use('/api/usuarios', usuariosRoute);
+app.use('/api/actividades',actividadesRoute);
+
+//Para subir rutas:
+app.use('/api/upload/',uploadRoute);
 
 
 

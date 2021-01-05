@@ -79,6 +79,9 @@ Para ejecutar el servidor se ha creado el script **start** en **package.json** p
 # 0.7 JSON Web Token
 [JSON Web Token](https://www.npmjs.com/package/jsonwebtoken) es una implementación de la tecnología de Web Tokens. Permite generar tokens a partir de un secreto que guarda el servidor. Sólo el servidor puede generar los tokens.
 
+# 0.8 toGeoJson
+[toGeoJeson]() es una librería que permite convertir ficheros KML y GPS a GeoJSON. Al realizar la conversión devuelve un objeto con la representación en GeoJSON .
+
 # 1. Gestionar usuarios en el servidor
 
 ## 1.1 Rutas para el control de usuarios.
@@ -152,6 +155,8 @@ Toda la gestión de la api colgará de la ruta ```/api```
 
 Dependiendo de la tarea en concreto, se gestionará en un [Router](https://expressjs.com/en/guide/routing.html) diferente. 
 
+Todas las rutas de la API están protegidas con autentificación de usuario.
+
 Veremos esas subrutas en cada uno de los siguientes puntos.
 
 ## 3.2. Subir rutas
@@ -160,6 +165,63 @@ Las rutas para subir datos parten de ```/api/upload/```, son las siguientes:
 * Subida de fotos para el usuario:
 
 * Subida de ficheros de rutas:
+    -  ```/api/upload/routeGPX```: Sube un fichero GPX directamente. Convertirá el fichero a GeoJSON.. la conversión tiene la siguiente  estructura:
+```javascript
+{ type: 'FeatureCollection',
+  features:
+   [ { type: 'Feature', //Aquí empieza un objeto feature, que es lo que almaceno.
+       properties:
+        { name: 'Tempo ride 🔥',
+          type: '1',
+          time: '2020-11-21T08:42:15Z',
+          _gpxType: 'trk',
+          coordTimes:
+           ['2020-11-21T08:42:15Z',
+             '2020-11-21T08:42:16Z', ...
+           ],
+           heartRates:
+           [ 68,
+             68,...
+           ],
+           geometry:
+        { type: 'LineString',
+          coordinates:
+           [ [ -6.375398, 39.468687, 548 ],
+             [ -6.375277, 39.468732, 548.4 ],...
+           ]
+           } 
+        }
+     } 
+    ] 
+}
+```
+* La subida comprueba que no exista otra actividad con esa misma fecha. Si no existe, entonces la sube.
+
+
+
+## 3.3. Consultar los usuarios
+Las rutas para consultar los usuarios parten de ```/api/usuarios/```, son las siguientes:
+
+
+* Obtener todos los usuarios:
+    
+    -  ```/api/usuarios/```: Devuelve todos los usuarios del sistema.
+
+    -  ```/api/usuarios/yo```: Devuelve mi usuario de vuelta.
+
+
+
+## 3.3. Consultar las actividades
+Las rutas de las actividades parten de ```/api/actividades/```. Son las siguientes:
+
+* Obtener todas las actividades:
+    -  ```/api/actividades/```: Devuelve todas las actividades del sistema. TODO: Debería poder filtrarse por campos las actividades.
+
+    -  ```/api/actividades/[_id]```: Devuelve la actividad con _id = '_id'.
+
+    -  ```/api/actividades/usuario/[_id]```: Devuelve las actividades del usuario con id = '_id'
+
+
 
 ## 3.2.1. Subir ficheros
 ## 3. Editar rutas
