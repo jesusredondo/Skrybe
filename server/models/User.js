@@ -20,16 +20,16 @@ const userSchema = new mongoose.Schema({
         max: 255,
         min: 6
     },
-    password: {
-        type: String,
-        required : true,
-        max: 1024,
-        min: 6
-    },
     imagen: {
         type: String,
         max:1024
-    }
+    },
+    actividades:[
+        {type: mongoose.Schema.Types.ObjectId, ref: 'Actividad'}
+    ],
+    sigue:[
+        {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+    ]
 
 },
 {timestamps: true});

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-//MODELO PARA UN FEATURE (GEOJSON):
-const featureSchema = new mongoose.Schema({
+//MODELO PARA UNA ACTIVIDAD (GEOJSON):
+const actividadSchema = new mongoose.Schema({
     type: {
         type: String,
         enum: ['Feature'],
@@ -43,10 +43,19 @@ const featureSchema = new mongoose.Schema({
         },
         coordinates: [[Number]]
 
-    }
+    },
+
+    comentarios: [
+        {type: mongoose.Schema.Types.ObjectId, ref: 'Comentario'}
+    ],
+
+    likes: [
+        {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+    ]
+
 
 
 }
 );
 
-module.exports = mongoose.model('Feature', featureSchema);
+module.exports = mongoose.model('Actividad', actividadSchema);

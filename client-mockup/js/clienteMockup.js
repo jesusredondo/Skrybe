@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     document.querySelector('#formularioUnaActividad').addEventListener('submit', unaActividad);
 
 
-    automatizar();
+    //automatizar();
 });
 
 /**

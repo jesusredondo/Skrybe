@@ -1,0 +1,6 @@
+{
+    "liveServer.settings.port": 5000,
+    "liveServer.settings.ignoreFiles" : [
+        "server/uploads/**"
+    ]
+}

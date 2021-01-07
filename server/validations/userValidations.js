@@ -8,7 +8,7 @@ function validarUsuarioSignin(data){
     const schemaUsuarioSignin = Joi.object({
         nombre: Joi.string().min(3).max(255),//.required(),
         apellidos: Joi.string().min(3).max(255),//.required(),
-        email: Joi.string().min(6).max(255),//.required().email(),
+        email: Joi.string().min(6).max(255).email(),//.required().email(),
         password: Joi.string().min(6).max(1024),//.required(),
         imagen: Joi.string().max(1024)
     })

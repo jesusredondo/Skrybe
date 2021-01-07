@@ -215,7 +215,7 @@ Las rutas para consultar los usuarios parten de ```/api/usuarios/```, son las si
 Las rutas de las actividades parten de ```/api/actividades/```. Son las siguientes:
 
 * Obtener todas las actividades:
-    -  ```/api/actividades/```: Devuelve todas las actividades del sistema. TODO: Debería poder filtrarse por campos las actividades.
+    -  ```/api/actividades/```: Devuelve todas las actividades del usuario que realiza la petición. TODO: Debería poder filtrarse por campos las actividades.
 
     -  ```/api/actividades/[_id]```: Devuelve la actividad con _id = '_id'.
 

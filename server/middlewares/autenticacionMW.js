@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 //Para el middleware
 module.exports = function (req,res,next){
     console.log("MIDDLEWARE AUTENTICATIONMW");
+    //console.log(req.header('Authorization'));
     if(!req.header('Authorization')) return res.status(401).send({error:'Acceso Denegado. No hay token'});
     const token = req.header('Authorization').split(' ')[1]; //Nos quedamos con lo que está después de 'Bearer '
     if(!token) return res.status(401).send({error:'Acceso Denegado. Token incorrecto'});

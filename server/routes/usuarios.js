@@ -7,6 +7,7 @@ const autenticationMW = require('../middlewares/autenticacionMW');
  * - Ruta protegida por autenticación.
  */
 router.post('/yo', autenticationMW, async (req, res) => {
+    console.log(req.user);
     let usuarioActual = await User.findById(req.user._id).exec();
     console.log(usuarioActual)
     res.send(usuarioActual);

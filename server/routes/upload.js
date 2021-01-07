@@ -6,7 +6,7 @@ const path = require('path');
 
 //Modelos del Schema:
 const User = require('../models/User')
-const Feature = require('../models/Feature')
+const Actividad = require('../models/Actividad')
 
 //PARA LA CONVERSIÓN A GEOJSON:
 const tj = require("@tmcw/togeojson");
@@ -48,26 +48,32 @@ router.post('/routeGPX', autenticationMW, async (req, res) => {
     //1) Comprobamos si ya existe uno con la misma fecha exacta en la BBDD:
     const geoJSONFeature = geoJSON.features[0]
     console.log(geoJSONFeature.properties.time)
-    const featureExists = await Feature.findOne({ 'properties.time' : geoJSONFeature.properties.time}  );
-    if(featureExists){
-        return res.status(400).send({error:'No puedes subir esta actividad, ya existe una similar en BBDD'});
+    const activityExists = await Actividad.findOne({ 'properties.time' : geoJSONFeature.properties.time}  );
+    if(activityExists){
+        //1.1) Tiene que ser la misma fecha y además para el mismo usuario: 
+        const actividadMismaFechaUsuario = User.find({_id: usuarioActual._id, actividades: activityExists._id})
+        if(actividadMismaFechaUsuario){
+            return res.status(400).send({error:'No puedes subir esta actividad, ya existe una similar en BBDD'});
+        }
+        
     }
     
     //2) Comprobamos que cumple el schema:
     //TODO: Validar?
 
     //3) Lo guardamos:
-    const geoJSONFeatureBBDD = new Feature(geoJSONFeature)
+    const actividadBD = new Actividad(geoJSONFeature)
     try{
-        const geoJSONFeatureBBDDSaved = await geoJSONFeatureBBDD.save();
-        res.send({track: geoJSONFeatureBBDDSaved});
+        const actividadBDSaved = await actividadBD.save();
+        usuarioActual.actividades.push(actividadBD._id);
+        await usuarioActual.save();
+        res.send({track: actividadBDSaved._id});
     }catch(err){
         res.status(400).send({error:err});
     } 
     
 
 
-    //res.send(geoJSON);    
 });
 
 
