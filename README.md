@@ -165,7 +165,7 @@ Las rutas para subir datos parten de ```/api/upload/```, son las siguientes:
 * Subida de fotos para el usuario:
 
 * Subida de ficheros de rutas:
-    -  ```/api/upload/routeGPX```: Sube un fichero GPX directamente. Convertirá el fichero a GeoJSON.. la conversión tiene la siguiente  estructura:
+    -  ```/api/upload/routeGPX``` **POST**: Sube un fichero GPX directamente. Convertirá el fichero a GeoJSON.. la conversión tiene la siguiente  estructura:
 ```javascript
 { type: 'FeatureCollection',
   features:
@@ -195,7 +195,7 @@ Las rutas para subir datos parten de ```/api/upload/```, son las siguientes:
     ] 
 }
 ```
-* La subida comprueba que no exista otra actividad con esa misma fecha. Si no existe, entonces la sube.
+* La subida comprueba que no exista otra actividad con esa misma fecha para dicho usuario. Si no existe, entonces la sube.
 
 
 
@@ -203,23 +203,41 @@ Las rutas para subir datos parten de ```/api/upload/```, son las siguientes:
 Las rutas para consultar los usuarios parten de ```/api/usuarios/```, son las siguientes:
 
 
-* Obtener todos los usuarios:
+* De usuarios:
     
-    -  ```/api/usuarios/```: Devuelve todos los usuarios del sistema.
+    -  ```/api/usuarios/``` **GET**: Devuelve todos los usuarios del sistema.
 
-    -  ```/api/usuarios/yo```: Devuelve mi usuario de vuelta.
+    -  ```/api/usuarios/yo```  **GET**: Devuelve mi usuario de vuelta.
+
+    -  ```/api/usuarios/follow```  **GET**: Devuelve todos los usuarios a los que sigo en el sistema.
+
+    -  ```/api/usuarios/followers```  **GET**: Devuelve todos los usuariosque me siguen.
+
+    -  ```/api/usuarios/follow/[_id_usuario]```  **POST**: El usuario que realiza la llamada comienza a seguir al usuario con id _id.
+
+    -  ```/api/usuarios/unfollow/[_id_usuario]```  **POST**: El usuario que realiza la llamada deja de seguir al usuario con id _id.
 
 
 
 ## 3.3. Consultar las actividades
 Las rutas de las actividades parten de ```/api/actividades/```. Son las siguientes:
 
-* Obtener todas las actividades:
-    -  ```/api/actividades/```: Devuelve todas las actividades del usuario que realiza la petición. TODO: Debería poder filtrarse por campos las actividades.
+* De actividades:
+    -  ```/api/actividades/```  **GET**: Devuelve todas las actividades del usuario que realiza la petición. TODO: Debería poder filtrarse por campos las actividades.
 
-    -  ```/api/actividades/[_id]```: Devuelve la actividad con _id = '_id'.
+    -  ```/api/actividades/[_id_actividad]```  **GET**: Devuelve la actividad con _id = '_id'.
 
-    -  ```/api/actividades/usuario/[_id]```: Devuelve las actividades del usuario con id = '_id'
+    -  ```/api/actividades/usuario/[_id_usuario]```  **POST**: Devuelve las actividades del usuario con id = '_id'
+
+
+
+## 3.4. Gestionar los comentarios de las actividades
+Las rutas de los mensajes parten de ```/api/comentarios/```. Son las siguientes:
+
+* De mensajes:
+    -  ```/api/comentarios/[_id_actividad]```  **GET**: .Devuelve todos los comentarios de una actividad.
+
+    -  ```/api/comentarios/[_id_actividad]```  **POST**: .Introduce el comentario que viene en el cuerpo del post en el campo *comentario*.
 
 
 
@@ -230,3 +248,29 @@ Las rutas de las actividades parten de ```/api/actividades/```. Son las siguient
     5. Eliminar rutas.
     6. Listar usuarios
         6.1 Hacer/Eliminar seguidores
+
+
+
+
+# 4 IONIC: 
+
+La documentación que se ha empleado como base para este proyecto [es esta web](https://devdactic.com/ionic-5-navigation-with-login/).
+
+**Capacitor Storage Plugin:**
+
+
+ROUTING:
+
+- IntroGuard: Checkea si el usuario ya ha visto la intro. La muestra si no la hubiese visto. Se usa para el Splash screen.
+
+- AutoLoginGuard: Automáticamente loguea un usuario al inicio de la aplicación si ya se hubiese logueado anteriormente.
+
+- AuthGuard: Asegura el acceso de las páginas internas de la APP.
+
+NOTAS: Podemos usar varias guardas para una página, podemos usar canLoad en lugar de canActivate ya que esto protejerá todo el "lazy loading", incluso no cargará el fichero si el usuario no tiene esa ruta permitida.
+
+Al asegurar la ruta /tabs al nivel superior ya estaremos asegurando cada otra ruta o página que podríamos añadir después a nuestro routind de tabs, ya que la guarda siempre se aplicaría en este caso.
+
+PÁGINA DE INTRODUCCIÓN:
+Podríamos hacer que siempre se mostrase la página de introducción al usuario, pero podría a ser molesto con el uso contínuo de la app. Por eso, hacemos una guarda que nos comprueba si ya hemos visto la página de inicio, en cuyo caso nos redirecciona a la página que queremos ver en lugar de a la introducción.
+

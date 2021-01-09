@@ -19,6 +19,7 @@ mongoose.connect(
 const authRoute = require('./routes/auth');
 const usuariosRoute = require('./routes/usuarios');
 const actividadesRoute = require('./routes/actividades');
+const comentariosRoute = require('./routes/comentarios');
 const uploadRoute = require('./routes/upload');
 
 
@@ -46,6 +47,7 @@ app.use('/api/auth', authRoute);
 //para consulta:
 app.use('/api/usuarios', usuariosRoute);
 app.use('/api/actividades',actividadesRoute);
+app.use('/api/comentarios',comentariosRoute);
 
 //Para subir rutas:
 app.use('/api/upload/',uploadRoute);

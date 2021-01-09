@@ -11,15 +11,24 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     document.querySelector('#formularioUsuarios').addEventListener('submit', pedirUsuarios);
 
+    document.querySelector('#formularioUsuariosSigo').addEventListener('submit', pedirUsuariosSigo);
+
+    document.querySelector('#formularioFollowers').addEventListener('submit', pedirFollowers);
+
     document.querySelector('#formularioSubirGPX').addEventListener('submit', subirGPXFile);
     
+    document.querySelector('#formularioTodasActividadesUsuario').addEventListener('submit', todasActividadesUsuario);
+
     document.querySelector('#formularioTodasActividades').addEventListener('submit', todasActividades);
-    
     
     document.querySelector('#formularioUnaActividad').addEventListener('submit', unaActividad);
 
+    document.querySelector('#formularioComentariosActividad').addEventListener('submit', comentariosActividad);
 
-    //automatizar();
+    document.querySelector('#formularioComentarActividad').addEventListener('submit', comentarActividad);
+
+
+    automatizar();
 });
 
 /**
@@ -81,7 +90,7 @@ function pedirYo(e) {
 
     fetch("http://localhost:3000/api/usuarios/yo",
         {
-            method: 'post',
+            method: 'get',
             headers: {
                 'Authorization':'Bearer '+ document.querySelector('#tokenYo').value
             }
@@ -94,20 +103,85 @@ function pedirYo(e) {
 /**
  * Envía la petición para Consultar los usuarios del sistema.
  */
-function pedirUsuarios(e) {
+async function pedirUsuarios(e) {
     e.preventDefault();
     
-    fetch("http://localhost:3000/api/usuarios",
+    let usuarios = await fetch("http://localhost:3000/api/usuarios",
         {
-            method: 'post',
+            method: 'get',
             headers: {
                 'Authorization':'Bearer '+ document.querySelector('#tokenUsuarios').value
             }
         })
-    .then(resp => resp.json())
-    .then(obj=> console.log(obj));
+    .then(resp => resp.json());
 
+    console.log(usuarios);
+
+
+    //Borramos el contenedor y mostramos todos los usuarios:
+    let contenedorTodosUsuarios = document.querySelector("#contenedorTodosUsuarios");
+    borrarContenedor(contenedorTodosUsuarios);
+    for(let usuario of usuarios){
+        contenedorTodosUsuarios.appendChild(AHTML.aUsuario(usuario)); 
+    }    
 }
+
+
+/**
+ * Envía la petición para Consultar los usuarios que sigo en el sistema.
+ */
+async function pedirUsuariosSigo(e) {
+    e.preventDefault();
+    
+    let usuarios = await fetch("http://localhost:3000/api/usuarios/follow",
+        {
+            method: 'get',
+            headers: {
+                'Authorization':'Bearer '+ document.querySelector('#tokenUsuariosSigo').value
+            }
+        })
+    .then(resp => resp.json());
+
+    console.log(usuarios);
+
+
+    //Borramos el contenedor y mostramos todos los usuarios:
+    let contenedorTodosUsuariosSigo = document.querySelector("#contenedorTodosUsuariosSigo");
+    borrarContenedor(contenedorTodosUsuariosSigo);
+    for(let usuario of usuarios){
+        contenedorTodosUsuariosSigo.appendChild(AHTML.aUsuario(usuario)); 
+    }    
+}
+
+
+
+/**
+ * Envía toda la petición para sacar los followers
+ */
+async function pedirFollowers(e) {
+    e.preventDefault();
+    
+    let followers = await fetch("http://localhost:3000/api/usuarios/followers",
+        {
+            method: 'get',
+            headers: {
+                'Authorization':'Bearer '+ document.querySelector('#tokenFollowers').value
+            }
+        })
+    .then(resp => resp.json());
+
+    console.log(followers);
+
+
+    //Borramos el contenedor y mostramos todos los usuarios:
+    let contenedorFollowers = document.querySelector("#contenedorFollowers");
+    borrarContenedor(contenedorFollowers);
+    for(let usuario of followers){
+        contenedorFollowers.appendChild(AHTML.aUsuario(usuario)); 
+    }    
+}
+
+
 
 /**
  * Sube un fichero GPX al servidor. Devuelve un objeto en GeoJSON como respuesta.
@@ -137,8 +211,36 @@ function subirGPXFile(e){
         .then(resp => resp.json())
         .then(obj=>console.log(obj)); 
     } else{
-        console.log("NO has seleccionado ningún fichero");
+        console.log("No has seleccionado ningún fichero");
     }
+}
+
+
+/**
+ * Pide todas las actividades de UN USUARIO que hay en el sistema de manera resumida.
+ */
+async function todasActividadesUsuario(e) {
+    e.preventDefault();
+    const _id_usuario = document.querySelector('#idTodasActividadesUsuario').value;
+    
+    let actividadesSimples = await fetch("http://localhost:3000/api/actividades/usuario/"+_id_usuario, 
+        {
+            method: 'get',
+            headers: {
+                'Authorization':'Bearer '+ document.querySelector('#tokenTodasActividadesUsuario').value
+            }
+        })
+    .then(resp => resp.json())
+
+    //Borramos el contenedor
+    let contenedorTAUsuario = document.querySelector("#contenedorTodasActividadesUsuario");
+    borrarContenedor(contenedorTAUsuario);
+
+    //Añadimos la info de cada actividad:
+    for(let actividadSimple of actividadesSimples){
+        contenedorTAUsuario.appendChild(AHTML.aActividadSimple(actividadSimple));
+    }
+    console.log(actividadesSimples);
 }
 
 
@@ -150,9 +252,9 @@ async function todasActividades(e) {
     
     let actividadesSimples = await fetch("http://localhost:3000/api/actividades",
         {
-            method: 'post',
+            method: 'get',
             headers: {
-                'Authorization':'Bearer '+ document.querySelector('#tokenUsuarios').value
+                'Authorization':'Bearer '+ document.querySelector('#tokenTodasActividades').value
             }
         })
     .then(resp => resp.json())
@@ -170,7 +272,7 @@ async function todasActividades(e) {
 
 
 /**
- * Pide todas las actividades que hay en el sistema de manera resumida.
+ * Pide una actividad de manera completa
  */
 async function unaActividad(e) {
     e.preventDefault();
@@ -181,9 +283,9 @@ async function unaActividad(e) {
     
     let actividad = await fetch("http://localhost:3000/api/actividades/"+idActividad,
         {
-            method: 'post',
+            method: 'get',
             headers: {
-                'Authorization':'Bearer '+ document.querySelector('#tokenUsuarios').value
+                'Authorization':'Bearer '+ document.querySelector('#tokenUnaActividad').value
             }
         })
     .then(resp => resp.json())
@@ -199,6 +301,70 @@ async function unaActividad(e) {
 }
 
 
+/**
+ * Pide todos los comentarios de una actividad.
+ */
+async function comentariosActividad(e) {
+    e.preventDefault();
+
+    let idActividad = document.querySelector("#idUnaActividadComentarios").value
+
+    console.log("ID Actividad: " + idActividad);
+    
+    let comentarios = await fetch("http://localhost:3000/api/comentarios/"+idActividad,
+        {
+            method: 'get',
+            headers: {
+                'Authorization':'Bearer '+ document.querySelector('#tokenComentariosActividad').value
+            }
+        })
+    .then(resp => resp.json())
+
+    console.log(comentarios);
+
+    //Borramos el contenedor y plantamos el mapa:
+    let contenedorComentariosActividad = document.querySelector("#contenedorComentariosActividad");
+    borrarContenedor(contenedorComentariosActividad);
+    
+    for(let comentario of comentarios){
+        contenedorComentariosActividad.appendChild(AHTML.aComentario(comentario));
+    }
+}
+
+
+/**
+ * Comenta una actividad
+ */
+async function comentarActividad(e) {
+    e.preventDefault();
+
+    let idActividad = document.querySelector("#idUnaActividadComentar").value;
+    let mensajeComentario = document.querySelector("#idComentarioActividadComentar").value;
+    console.log("ID Actividad: " + idActividad);
+    console.log("Comentario: " + mensajeComentario);
+
+    var data = new FormData()
+    data.append('mensaje',mensajeComentario);
+    
+    let comentario = await fetch("http://localhost:3000/api/comentarios/"+idActividad,
+        {
+            method: 'post',
+            headers: {
+                'Authorization':'Bearer '+ document.querySelector('#tokenComentariosActividad').value
+            },
+            body: data
+        })
+    .then(resp => resp.json())
+
+    console.log(comentario);
+
+       
+
+}
+
+
+
+
 
 /**
  * Automatiza las llamadas para tener un token al arrancar la aplicación.
@@ -207,5 +373,5 @@ async function automatizar() {
     //Obtener token y rellenar donde se necesita:
     await enviarLogin();
     
-    document.querySelector('#idUnaActividad').value = '5ff1bd6f98638341465234c4';
+    //document.querySelector('#idUnaActividad').value = '5ff1bd6f98638341465234c4';
 }

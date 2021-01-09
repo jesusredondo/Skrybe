@@ -1,0 +1,7 @@
+{
+  "name": "Skrybe",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

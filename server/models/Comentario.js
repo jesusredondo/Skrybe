@@ -13,4 +13,4 @@ const comentarioSchema = new mongoose.Schema({
 {timestamps: true});
 
 
-module.exports = mongoose.model('Comentario', credencialSchema);
+module.exports = mongoose.model('Comentario', comentarioSchema); 

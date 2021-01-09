@@ -14,6 +14,6 @@ module.exports = function (req,res,next){
         req.user = usuarioVerificado; //Lo añadimos a la petición para los siguientes manejadores
         next();
     }catch(err){
-        res.status(400).send({error:'Token inválido'});
+        return res.status(400).send({error:'Token inválido'});
     }
 }

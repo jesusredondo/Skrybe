@@ -7,17 +7,19 @@ body{
     background-color: antiquewhite;
 }
 
-.contenedor-central{
+.div-central{
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
-#contenedorTodasActividades{
+[id^=contenedor]{
     border: 1px solid cornflowerblue;
     padding: 5px;
     margin: 5px;
 }
+
+.contenedor
 
 #contenedorTodasActividades > div.actividad{
     border-radius: 7px;
@@ -29,4 +31,12 @@ body{
 .mapa{
     height: 400px;
     width: 100%;
+}
+
+
+.usuario{
+    background-color: rgb(255, 247, 244);
+    border-radius: 7px;
+    padding: 5px;
+    margin: 5px;
 }

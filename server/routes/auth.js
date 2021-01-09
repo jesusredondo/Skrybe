@@ -46,7 +46,7 @@ router.post('/signin',async(req,res)=>{
     try{
          savedUser = await userDB.save();
     }catch(err){
-        res.status(400).send({error:err});
+        return res.status(400).send({error:err});
     } 
 
     
@@ -63,12 +63,12 @@ router.post('/signin',async(req,res)=>{
         //Eliminamos el usuario creado:
         savedUser.remove().exec()
         //Devolvemos el error
-        res.status(400).send({error:err});
+        return res.status(400).send({error:err});
     } 
 
 
     //Si todo funciona correctamente símplemente devolvemos el mail del usuario
-    res.send({user: savedUser.email});
+    return res.send({user: savedUser.email});
 });
 
 

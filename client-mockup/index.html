@@ -20,9 +20,9 @@
         <link rel="stylesheet" href="./css/cssClienteMockup.css">
     </head>
     <body>
-        <div class="contenedor-central">
+        <div class="div-central">
             
-            <div id="contenedor-izq">
+            <div id="columna-izq">
                 <h1>Comprobando el Signin</h1>
                 <form id="formularioSignin">
                     <label for=nombre"">Nombre:</label>
@@ -65,6 +65,24 @@
                     <input type="text" id="tokenUsuarios" name="token" placeholder="Meter aquí el token"/><br>
                     <input type="submit" value="Enviar">
                 </form>
+                <div id="contenedorTodosUsuarios"></div>
+
+                <h1>Listar todos los usuarios que sigo:</h1>
+                <form id="formularioUsuariosSigo" noaction>
+                    <label for=tokenUsuariosSigo"">Token:</label>
+                    <input type="text" id="tokenUsuariosSigo" name="token" placeholder="Meter aquí el token"/><br>
+                    <input type="submit" value="Enviar">
+                </form>
+                <div id="contenedorTodosUsuariosSigo"></div>
+
+
+                <h1>Listar todos mis followers:</h1>
+                <form id="formularioFollowers" noaction>
+                    <label for=tokenFollowers"">Token:</label>
+                    <input type="text" id="tokenFollowers" name="token" placeholder="Meter aquí el token"/><br>
+                    <input type="submit" value="Enviar">
+                </form>
+                <div id="contenedorFollowers"></div>
 
 
 
@@ -78,6 +96,18 @@
                 </form>
 
 
+
+                <h1>Obtener todas las Actividades de un usuario (por su id_usuario):</h1>
+                <form id="formularioTodasActividadesUsuario" noaction>
+                    <label for="tokenTodasActividadesUsuario">Token:</label>
+                    <input type="text" id="tokenTodasActividadesUsuario" name="token" placeholder="Meter aquí el token"/><br>
+                    <label for="idTodasActividadesUsuario">Token:</label>
+                    <input type="text" id="idTodasActividadesUsuario" name="nameTodasActividadesUsuario" placeholder="ID de usuario"/><br>
+                    <input type="submit" value="Enviar">
+                </form>
+                <div id="contenedorTodasActividadesUsuario"></div>
+
+
                 <h1>Obtener todas las Actividades de un usuario (por su token):</h1>
                 <form id="formularioTodasActividades" noaction>
                     <label for="tokenTodasActividades">Token:</label>
@@ -87,7 +117,7 @@
                 <div id="contenedorTodasActividades"></div>
 
 
-                <h1>Obtener una Feature en concreto - MAPA (TODO: Cambiar a Actividad cuando BD cambie):</h1>
+                <h1>Obtener una Actividad en concreto - MAPA:</h1>
                 <form id="formularioUnaActividad" noaction>
                     <label for="tokenUnaActividad">Token:</label>
                     <input type="text" id="tokenUnaActividad" name="token" placeholder="Meter aquí el token"/><br>
@@ -98,10 +128,37 @@
                 <div id="contenedorUnaActividad"></div>
 
 
+                <h1>Obtener comentarios de una Actividad en concreto:</h1>
+                <form id="formularioComentariosActividad" noaction>
+                    <label for="tokenComentariosActividad">Token:</label>
+                    <input type="text" id="tokenComentariosActividad" name="token" placeholder="Meter aquí el token"/><br>
+                    <label for="idUnaActividadComentarios">ID Actividad:</label>
+                    <input type="text" id="idUnaActividadComentarios" name="id" placeholder="Meter aquí la id de la actividad"/><br>
+                    <input type="submit" value="Enviar">
+                </form>
+                <div id="contenedorComentariosActividad"></div>
+
+
+                <h1>Comentar una Actividad en concreto:</h1>
+                <form id="formularioComentarActividad" noaction>
+                    <label for="tokenComentarActividad">Token:</label>
+                    <input type="text" id="tokenComentarActividad" name="token" placeholder="Meter aquí el token"/><br>
+                    <label for="idUnaActividadComentar">ID Actividad:</label>
+                    <input type="text" id="idUnaActividadComentar" name="id" placeholder="Meter aquí la id de la actividad"/><br>
+                    <label for="idComentarioActividadComentar">Comentario:</label>
+                    <input type="text" id="idComentarioActividadComentar" name="id" placeholder="Meter aquí el nuevo comentario"/><br>
+                    <input type="submit" value="Enviar">
+                </form>
+
+
+
+
+
+
 
             </div>
-            <div id="contenedor-der">
-                <div id="contenedorRespuesta"></div>
+            <div id="columna-der">
+                
             </div>
             
 

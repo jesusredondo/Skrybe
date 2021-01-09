@@ -19,6 +19,8 @@ class AHTML {
         //TODO: Ojo esto está puesto ahora a pelo:
         divActividadSimple.querySelector('button').addEventListener('click',()=>{
             document.querySelector("#idUnaActividad").value = actividadSimple._id;
+            document.querySelector("#idUnaActividadComentarios").value = actividadSimple._id;
+            document.querySelector("#idUnaActividadComentar").value = actividadSimple._id;
         });
 
         return divActividadSimple;
@@ -50,6 +52,55 @@ class AHTML {
 
     }
 
-    
+    /**
+     * Representa un usuario de la DB como div:
+     * @param {UsuarioDB} usuario 
+     */
+    static aUsuario(usuario){
+        let usuarioDiv = document.createElement('div');
+        usuarioDiv.classList.add('usuario');
+        usuarioDiv.innerHTML = `<p><b>Nombre: </b>${usuario.nombre} ${usuario.apellidos}</p>
+        <p><b>Num Actividades: </b> ${usuario.actividades.length}</p>
+        <button>Seguir</button> <button>Dejar de seguir</button>`;
+
+        let botonSeguir = usuarioDiv.querySelectorAll('button')[0];
+        botonSeguir.addEventListener('click',async e=>{
+        const respuesta = await fetch('http://localhost:3000/api/usuarios/follow/'+usuario._id,
+            {
+                method: 'post',
+                headers: {
+                    'Authorization':'Bearer '+ document.querySelector('#tokenUsuarios').value
+                }
+            }).then(resp => resp.json());
+            console.log(respuesta);
+        });
+
+        let botonDejarSeguir = usuarioDiv.querySelectorAll('button')[1];
+        botonDejarSeguir.addEventListener('click',async e=>{
+        const respuesta = await fetch('http://localhost:3000/api/usuarios/unfollow/'+usuario._id,
+            {
+                method: 'post',
+                headers: {
+                    'Authorization':'Bearer '+ document.querySelector('#tokenUsuarios').value
+                }
+            }).then(resp => resp.json());
+            console.log(respuesta);
+        });
+
+
+        return usuarioDiv;
+    }
+
+    /**
+     * Representa un comentario de una actividad como un div
+     * @param {*} comentario 
+     */
+    static aComentario(comentario){
+        let comentarioDiv = document.createElement('div');
+        comentarioDiv.classList.add('comentario');
+        comentarioDiv.innerHTML = `<p><b>${comentario.user_id.nombre}: </b>${comentario.mensaje}</p>`;
+
+        return comentarioDiv;
+    }
 
 }
