@@ -229,6 +229,8 @@ Las rutas de las actividades parten de ```/api/actividades/```. Son las siguient
 
     -  ```/api/actividades/usuario/[_id_usuario]```  **POST**: Devuelve las actividades del usuario con id = '_id'
 
+    -  ```/api/actividades/follow/```  **GET**: Devuelve las actividades de los usuarios que sigo.
+
 
 
 ## 3.4. Gestionar los comentarios de las actividades
@@ -274,3 +276,15 @@ Al asegurar la ruta /tabs al nivel superior ya estaremos asegurando cada otra ru
 PÁGINA DE INTRODUCCIÓN:
 Podríamos hacer que siempre se mostrase la página de introducción al usuario, pero podría a ser molesto con el uso contínuo de la app. Por eso, hacemos una guarda que nos comprueba si ya hemos visto la página de inicio, en cuyo caso nos redirecciona a la página que queremos ver en lugar de a la introducción.
 
+
+
+
+
+
+
+NOTAS: PARA EJERCUTAR EN ANDROID: https://ionicframework.com/docs/cli/commands/capacitor-run
+
+
+COMPONENTES DE IONIC: https://ionicframework.com/docs/components
+
+AÑADIR MAPA DE LEAFLET: https://edupala.com/how-to-add-leaflet-map-in-ionic/

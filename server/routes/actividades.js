@@ -29,6 +29,35 @@ router.get('/usuario/:_id_usuario', autenticationMW, paramUser, async (req, res)
     return res.send(todasActividades.actividades);
 });
 
+/**
+ * DEVUELVE LAS {NOMBRE (user), APELLIDO (user), ID} DE LAS ACTIVIDADES DE LOS USUARIOS QUE SIGO
+ * - 
+ */
+router.get('/follow/', autenticationMW, async (req, res) => {
+    let _id = req.user._id;
+    console.log(_id);
+    //Encontramos las actividades con ese ID (Ya nos aseguramos en el middleware que existía):
+    let miUser = await User.findById( _id, ).populate('sigue').exec();
+    let actividadesIDS = [];
+
+    for (let userSigo of miUser.sigue){
+        
+        for(let actividad of userSigo.actividades){
+            actividadesIDS.push({
+                "nombre":userSigo.nombre,
+                "apellidos":userSigo.apellidos,
+                "id": actividad,
+            })
+        }
+    }
+
+
+    /*let actividad = await Actividad.findById({"_id" : _id}).exec();
+    return res.send(actividad);*/
+    console.log(actividadesIDS)
+    return res.send(actividadesIDS);
+});
+
 
 /**
  * DEVUELVE UNA ACTIVIDAD POR ID, DE MANERA COMPLETA
@@ -41,6 +70,9 @@ router.get('/:_id_actividad', autenticationMW, paramActividad, async (req, res) 
     let actividad = await Actividad.findById({"_id" : _id}).exec();
     return res.send(actividad);
 });
+
+
+
 
 
 

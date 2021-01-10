@@ -1,7 +1,11 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title class="ion-text-center">
-      ACTIVIDADES
+  <ion-toolbar color="primary">
+    <ion-title  >
+        <div class="header-tab" >
+            <img src="assets/imagenes/logos/skrybe-logo.png">
+            SIGUIENDO
+        </div>
+      
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,8 +17,11 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
-  <ion-button ion-button color="light">Light</ion-button>
+
+ <app-actividad *ngFor="let actividad of actividades" 
+ [idMapa]="'mapa-'+actividad.id"
+ [nombreUser]="actividad.nombre"
+ [apellidosUser]="actividad.apellidos"></app-actividad>
 
   
 </ion-content>

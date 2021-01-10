@@ -15,13 +15,18 @@ const routes: Routes = [
     loadChildren: () => import('./pages/intro/intro.module').then( m => m.IntroPageModule)
   },
   {
+    path: 'signin',
+    loadChildren: () => import('./pages/signin/signin.module').then( m => m.SigninPageModule),
+    canLoad: [IntroGuard] //Comprobamos si podemos mostrar la intro o continuar hacia adelante.
+  },
+  {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
     canLoad: [AuthGuard] //Todo lo que cuelgue de tabs es seguro
   },
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/tabs/tab1',
     pathMatch: 'full'
   }
   ,

@@ -1,0 +1,10 @@
+<div class="actividad">
+    <div class="actividad-user">
+        <p>{{nombreUser| titlecase}} {{apellidosUser | titlecase}}</p>
+        <p>{{fecha |  date:"medium" }}</p>
+    </div>
+    <h2>{{this.actividadActual ? this.actividadActual.properties.name : ""}}</h2>
+    <div [id]="idMapa"></div>
+    <div class="comentarios">
+    </div>
+</div>

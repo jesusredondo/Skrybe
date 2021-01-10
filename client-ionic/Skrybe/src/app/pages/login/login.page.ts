@@ -7,9 +7,8 @@ import { Router } from '@angular/router';
 import { Plugins } from '@capacitor/core';
 import { TOKEN_KEY } from './../../services/authentication.service';
 
-
-
 const { Storage } = Plugins;
+
 
 @Component({
   selector: 'app-login',
@@ -17,6 +16,7 @@ const { Storage } = Plugins;
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+    
     credentials: FormGroup;
  
     constructor(
@@ -51,13 +51,17 @@ export class LoginPage implements OnInit {
         }else{ //Si login correcto --> Palante
             //Guardamos el Bearer Token:
             await Storage.set({key: TOKEN_KEY, value: resultadoLogin.access_token});
-
+            this.authService.okLoginNoObservable(); //Marcamos que estamos logueados para el futuro.
             this.router.navigateByUrl('/tabs', { replaceUrl: true });
         }
     }
 
 
-    nuevoMiembro(){
+    irASignin(){
+        this.router.navigateByUrl('/signin', { replaceUrl: true });
+    }
+
+    verIntro(){
         this.router.navigateByUrl('/intro', { replaceUrl: true });
     }
 

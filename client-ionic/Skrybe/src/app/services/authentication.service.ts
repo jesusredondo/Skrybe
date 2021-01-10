@@ -31,6 +31,19 @@ export class AuthenticationService {
             this.isAuthenticated.next(false);
         }
     }
+
+    /**
+     * Devuelve el token guardado si existe. Si no lo hay, devuelve falso.
+     */
+    async getToken(){
+        const token = await Storage.get({ key: TOKEN_KEY });    
+        if (token && token.value) {
+            return token.value
+        } else {
+            return false;
+        }
+    }
+
      
     login(credentials: {email, password}): Observable<any> {
         return this.http.post(`http://localhost:3000/api/auth/login`, credentials).pipe(
@@ -53,10 +66,31 @@ export class AuthenticationService {
                 method: 'post',
                 body: fd
             })
-        .then(resp => resp.json())
+        .then(resp => resp.json());
+    }
+
+    okLoginNoObservable(){
+        this.isAuthenticated.next(true);
     }
 
      
+
+    signinPromise(credentials: {nombre, apellidos, email, password}) : Promise<any> {
+        var fd = new FormData();
+        fd.append('nombre',credentials.nombre);
+        fd.append('apellidos',credentials.apellidos);
+        fd.append('email',credentials.email);
+        fd.append('password',credentials.password);
+        return fetch("http://localhost:3000/api/auth/signin",
+            {
+                method: 'post',
+                body: fd
+            })
+        .then(resp => resp.json())
+    }
+
+
+
     logout(): Promise<void> {
         this.isAuthenticated.next(false);
         return Storage.remove({key: TOKEN_KEY});

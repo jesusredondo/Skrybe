@@ -7,6 +7,7 @@ const User = require('../models/User');
     console.log('MIDDELWARE PARAM-ACTIVIDAD');
 
     let _id = req.params._id_actividad
+    console.log(_id);
 
     //Encontramos la actividad con ese ID:
     try{

@@ -11,6 +11,13 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
 
+
+//PARA EL IDIOMA DE LAS FECHAS
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEsAr from '@angular/common/locales/es';
+registerLocaleData(localeEsAr, 'es');
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -21,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
         HttpClientModule
 ],
   providers: [
+    { provide: LOCALE_ID, useValue: "es" }, //IDIOMA FECHAS
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
