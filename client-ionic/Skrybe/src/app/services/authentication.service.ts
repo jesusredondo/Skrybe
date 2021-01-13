@@ -7,6 +7,7 @@ import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { Plugins } from '@capacitor/core';
 const { Storage } = Plugins;
 
+import { UrlServidorService } from './url-servidor.service';
 export const TOKEN_KEY = 'jwt-token'; //token de Seguridad
 
 @Injectable({
@@ -17,7 +18,8 @@ export class AuthenticationService {
     isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
     token = '';
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+        private urlServidorSerice:UrlServidorService) {
         this.loadToken();
     }
      
@@ -46,7 +48,7 @@ export class AuthenticationService {
 
      
     login(credentials: {email, password}): Observable<any> {
-        return this.http.post(`http://localhost:3000/api/auth/login`, credentials).pipe(
+        return this.http.post(this.urlServidorSerice.getUrlBase()+`api/auth/login`, credentials).pipe(
             map((data: any) => data.token),
             switchMap(token => {
                 return from(Storage.set({key: TOKEN_KEY, value: token}));
@@ -61,7 +63,7 @@ export class AuthenticationService {
         var fd = new FormData();
         fd.append('email',credentials.email);
         fd.append('password',credentials.password);
-        return fetch("http://localhost:3000/api/auth/login",
+        return fetch(this.urlServidorSerice.getUrlBase()+"api/auth/login",
             {
                 method: 'post',
                 body: fd
@@ -81,7 +83,7 @@ export class AuthenticationService {
         fd.append('apellidos',credentials.apellidos);
         fd.append('email',credentials.email);
         fd.append('password',credentials.password);
-        return fetch("http://localhost:3000/api/auth/signin",
+        return fetch(this.urlServidorSerice.getUrlBase()+"api/auth/signin",
             {
                 method: 'post',
                 body: fd

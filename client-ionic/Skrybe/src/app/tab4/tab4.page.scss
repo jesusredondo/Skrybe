@@ -1,0 +1,21 @@
+.header-tab{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+
+    img{
+        height: 40px;
+        padding-right: 10px;
+    }
+}
+
+
+
+ion-list-header{
+    font-weight: bold;
+}
+
+
+ion-fab-button{
+    margin-right: 19px;
+}

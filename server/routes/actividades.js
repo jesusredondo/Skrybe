@@ -46,6 +46,7 @@ router.get('/follow/', autenticationMW, async (req, res) => {
             actividadesIDS.push({
                 "nombre":userSigo.nombre,
                 "apellidos":userSigo.apellidos,
+                "idUser":userSigo._id,
                 "id": actividad,
             })
         }
@@ -67,7 +68,15 @@ router.get('/:_id_actividad', autenticationMW, paramActividad, async (req, res) 
     let _id = req.params._id_actividad
     console.log(_id);
     //Encontramos la actividad con ese ID (Ya nos aseguramos en el middleware que existía):
-    let actividad = await Actividad.findById({"_id" : _id}).exec();
+    let actividad = await Actividad.findById({"_id" : _id}).populate(
+        { 
+            path: 'comentarios',
+            populate: {
+              path: 'user_id',
+              model: 'User',
+              select: 'nombre apellidos'
+            } 
+         }).exec();
     return res.send(actividad);
 });
 

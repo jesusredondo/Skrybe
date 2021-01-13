@@ -13,9 +13,79 @@
         </ion-toolbar>
     </ion-header>
     
+    <!--Usuario:-->
+    <ion-grid *ngIf="miUsuario">
+        <ion-row>
+            <ion-col class="ion-text-center" size="4">
+            <img class="imgPrincipal" [src]="miUsuario.imagen">
+        </ion-col>
+        <ion-col size="8">
+            <h2>{{miUsuario.nombre | titlecase}} {{miUsuario.apellidos | titlecase}}</h2>
+            <p>{{miUsuario.actividades.length}} actividades</p>
+            <p>Sigues a {{ usuariosSiguiendo.length }} usuarios</p>
+            <p>Te siguen {{ usuariosFollowers.length }} usuarios</p>
+
+        </ion-col>
+
+        </ion-row>
+        
+    </ion-grid>
+    
+    <!--Logout-->
+    <ion-button expand="full" color="danger" (click)="logout()">Logout</ion-button>
+
+
+    <!--Listas de seguidos/seguidores-->
+    <ion-list>
+        <ion-list-header>
+         Siguiendo ({{usuariosSiguiendo.length}}):
+        </ion-list-header>
+
+        <ion-item *ngFor="let usuarioSiguiendo of usuariosSiguiendo" >
+          <ion-avatar slot="start">
+            <img [src]="usuarioSiguiendo.imagen">
+          </ion-avatar>
+          <ion-label>
+            <h2>{{usuarioSiguiendo.nombre | titlecase}}  {{usuarioSiguiendo.apellidos  | titlecase}}</h2>
+            <h3>{{usuarioSiguiendo.actividades.length}} actividades</h3>
+            <ion-badge *ngIf="usuarioSiguiendo.siguiendo" color="secondary">Siguiendo</ion-badge>
+          </ion-label>
+          <!--
+          <ion-button *ngIf="usuarioSiguiendo.siguiendo" (click)="dejarSeguir(usuario)" shape="round" fill="outline" color="danger">
+            <ion-icon name="person-remove-outline"></ion-icon>
+          </ion-button>
+          <ion-button *ngIf="!usuarioSiguiendo.siguiendo"  (click)="empezarSeguir(usuario)" shape="round" fill="outline">
+              <ion-icon name="person-add-outline"></ion-icon>
+            </ion-button>
+            -->
+        </ion-item>
+    </ion-list>
+
+
+    <ion-list>
+        <ion-list-header>
+         Seguidores ({{usuariosFollowers.length}}):
+        </ion-list-header>
+
+        <ion-item *ngFor="let usuarioFollow of usuariosFollowers" >
+          <ion-avatar slot="start">
+            <img [src]="usuarioFollow.imagen">
+          </ion-avatar>
+          <ion-label>
+            <h2>{{usuarioFollow.nombre | titlecase}}  {{usuarioFollow.apellidos  | titlecase}}</h2>
+            <h3>{{usuarioFollow.actividades.length}} actividades</h3>
+            <ion-badge *ngIf="usuarioFollow.siguiendo" color="secondary">Siguiendo</ion-badge>
+          </ion-label>
+          <!--
+          <ion-button *ngIf="usuarioFollow.siguiendo" (click)="dejarSeguir(usuario)" shape="round" fill="outline" color="danger">
+            <ion-icon name="person-remove-outline"></ion-icon>
+          </ion-button>
+          <ion-button *ngIf="!usuarioFollow.siguiendo"  (click)="empezarSeguir(usuario)" shape="round" fill="outline">
+              <ion-icon name="person-add-outline"></ion-icon>
+            </ion-button>
+            -->
+        </ion-item>
+    </ion-list>
     
     
-    <ion-button expand="full" (click)="logout()">Logout</ion-button>
-    
-    <!--<app-explore-container name="Tab 3 page"></app-explore-container>-->
 </ion-content>

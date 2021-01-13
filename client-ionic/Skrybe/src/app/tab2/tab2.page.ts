@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+import { ActividadesServiceService } from '../services/actividades-service.service';
+
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -7,6 +10,14 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+    actividades;
+
+    constructor(private actividadesService: ActividadesServiceService) {}
+
+    async ngOnInit() { 
+        this.actividades = await this.actividadesService.actividadesPropias();
+        console.log("ACTIVIDADES!");
+        console.log(this.actividades);
+    }
 
 }

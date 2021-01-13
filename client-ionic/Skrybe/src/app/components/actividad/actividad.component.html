@@ -1,10 +1,46 @@
 <div class="actividad">
     <div class="actividad-user">
-        <p>{{nombreUser| titlecase}} {{apellidosUser | titlecase}}</p>
-        <p>{{fecha |  date:"medium" }}</p>
+        <ion-row>
+            <ion-col *ngIf="idUser"  size="2">
+                <img [src]="avatarIdenticonUsuarioID(idUser)">
+            </ion-col>
+            <ion-col>
+                <p>{{nombreUser| titlecase}} {{apellidosUser | titlecase}}</p>
+                <p>{{fecha |  date:"medium" }}</p>
+            </ion-col>
+        </ion-row>
+        
     </div>
     <h2>{{this.actividadActual ? this.actividadActual.properties.name : ""}}</h2>
     <div [id]="idMapa"></div>
-    <div class="comentarios">
+    <div *ngIf="hayComentarios()"  class="comentarios">
+        <h5>Comentarios:</h5>
+        <div class="contenedor-comentarios">
+            <p *ngFor="let comentarioActividad of this.actividadActual.comentarios">
+            <b><ion-icon name="chatbubbles"></ion-icon>
+                {{comentarioActividad.user_id.nombre | titlecase}} {{comentarioActividad.user_id.apellidos | titlecase}}:</b> {{comentarioActividad.mensaje}}
+        </p>
+        </div>
+        
+        <div class="comentar">
+            <ion-icon *ngIf="!comentando" (click)="empezarComentar()" name="add-circle"></ion-icon>
+            
+            <form *ngIf="comentando" (ngSubmit)="comentar()" [formGroup]="comentarioFG">
+                <div class="input-group">
+                    <ion-item>
+                        <ion-input type="text" placeholder="Comentario" formControlName="comentario"></ion-input>
+                    </ion-item>
+                    <div *ngIf="(comentario.dirty || comentario.touched) && comentario.errors" class="errors">
+                    </div>
+
+                    
+                </div>
+                <ion-button  type="submit" size="small" [disabled]="!comentarioFG.valid">
+                    <ion-icon slot="start" name="send"></ion-icon>
+                    Enviar
+                </ion-button>
+            </form>
+
+        </div>
     </div>
 </div>

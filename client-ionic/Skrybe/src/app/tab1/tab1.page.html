@@ -17,11 +17,12 @@
     </ion-toolbar>
   </ion-header>
 
-
- <app-actividad *ngFor="let actividad of actividades" 
- [idMapa]="'mapa-'+actividad.id"
- [nombreUser]="actividad.nombre"
- [apellidosUser]="actividad.apellidos"></app-actividad>
-
+  <ng-container *ngIf="actividades" >
+    <app-actividad *ngFor="let actividad of actividades" 
+    [idUser]="actividad.idUser"
+    [idMapa]="'mapa-'+actividad.id"
+    [nombreUser]="actividad.nombre"
+    [apellidosUser]="actividad.apellidos"></app-actividad>
+    </ng-container>
   
 </ion-content>

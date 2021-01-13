@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from './../services/authentication.service';
 
-
+import { UrlServidorService } from './url-servidor.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActividadesServiceService {
 
-    constructor(private authService: AuthenticationService) { }
+    constructor(private authService: AuthenticationService,
+        private urlServidorSerice:UrlServidorService) { }
 
     async getActividad(idActividad):Promise<any>{
         const token = await this.authService.getToken();
 
-       return fetch("http://localhost:3000/api/actividades/"+idActividad,
+       return fetch(this.urlServidorSerice.getUrlBase()+"api/actividades/"+idActividad,
             {
                 method: 'get',
                 headers: {
@@ -26,32 +27,32 @@ export class ActividadesServiceService {
 
 
 
-    async actividadesMias():Promise<any>{
+    async actividadesFollow():Promise<any>{
         const token = await this.authService.getToken();
 
-       return fetch("http://localhost:3000/api/actividades/follow",
+        return fetch(this.urlServidorSerice.getUrlBase()+"api/actividades/follow",
             {
                 method: 'get',
                 headers: {
                     'Authorization':'Bearer '+token 
                 }
             })
-        .then(resp => resp.json())
+        .then(resp => resp.json());
         
      }
 
 
-    async actividadesAmigos():Promise<any>{
-       /* var fd = new FormData();
-        fd.append('email',credentials.email);
-        fd.append('password',credentials.password);
-        return fetch("http://localhost:3000/api/auth/login",
+    async actividadesPropias ():Promise<any>{
+        const token = await this.authService.getToken();
+
+        return fetch(this.urlServidorSerice.getUrlBase()+"api/actividades",
             {
-                method: 'post',
-                body: fd
+                method: 'get',
+                headers: {
+                    'Authorization':'Bearer '+token 
+                }
             })
         .then(resp => resp.json());
-        */
     }
 
 

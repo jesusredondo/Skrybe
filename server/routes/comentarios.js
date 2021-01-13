@@ -20,7 +20,7 @@ router.get('/:_id_actividad', autenticationMW, paramActividad, async (req, res) 
             populate: {
               path: 'user_id',
               model: 'User',
-              select: 'nombre'
+              select: 'nombre apellidos'
             } 
          }).exec();
         console.log(actividadComentarios.comentarios);

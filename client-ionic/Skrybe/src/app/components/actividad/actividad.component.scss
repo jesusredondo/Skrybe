@@ -21,6 +21,10 @@
     p:nth-child(1){
         font-weight: bold;
     }
+    img{
+        margin-top: 10px;
+        
+    }
 }
 
 
@@ -28,5 +32,43 @@
     //background-color: aliceblue;
     width: 100%;
     height: 200px;  
-    margin-bottom: 5px;
+   
+}
+
+.comentarios{
+    padding-top: 3px;
+    padding-bottom: 1px;
+    background-color: whitesmoke;
+    padding-left: 10%;
+    padding-right: 10%;
+    box-sizing: border-box;
+    min-height: 40px;
+    
+
+    h5{
+        font-weight: bold;
+        margin-top: 0 !important;
+    }
+    p{
+        font-size: small;
+    }
+
+    .contenedor-comentarios{
+        max-height: 100px;
+        overflow-y: scroll;
+    }
+
+}
+
+.comentar{
+    text-align: center;
+    ion-icon{
+        font-size: xx-large;
+    }
+
+    .input-group{
+        border-radius: 20px;
+        overflow: hidden;
+        margin-bottom: 3px;
+    }
 }

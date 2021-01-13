@@ -10,12 +10,22 @@ import { ActividadesServiceService } from '../services/actividades-service.servi
 })
 export class Tab1Page {
 
-    actividades;
+    actividades=[];
 
     constructor(private actividadesService: ActividadesServiceService) { }
     
     async ngOnInit() { 
-        this.actividades = await this.actividadesService.actividadesMias();
+        //await this.refrescarActividades();
+    }
+
+
+    async ionViewDidEnter() { 
+        await this.refrescarActividades(); 
+    }
+
+
+    async refrescarActividades(){
+        this.actividades = await this.actividadesService.actividadesFollow();
         console.log("ACTIVIDADES!");
         console.log(this.actividades);
     }
